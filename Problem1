@@ -1,0 +1,150 @@
+#include <iostream>
+#include <conio.h>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    //declaration of variables
+    string ArrayFirst[50], temp1;
+    double individual[50], group[50], quizzes[50];;
+    double prelims_written, prelims_pract, finals_written, finals_pract, temp;
+    float average1, average2, average3, average4, average5;
+    float sum1, sum2, sum3;
+    float final_grade, percentage_f, percentage_p;
+    float percentage_indv, percentage_grp, percentage_quiz;
+    float final_grade_sem[50];
+
+    for(int i = 0; i<50; i++) //loop for input of grades
+    {
+        sum1=0, sum2=0, sum3=0; //initialize the sum values
+        cout<<"Enter Name of Student: ";
+        cin>>ArrayFirst[i]; //array for names of the students
+
+        cout<<"Enter (10) Individual Report grades (100 points each): "<<endl;  //individual reports computations
+        for (int i = 0; i<10; i++){
+        cin>>individual[i];
+        sum1 += individual[i];
+        }
+        average1 = sum1/10;
+        percentage_indv = ((average1/100)*0.15)*100; //formula for ind percentages
+        cout<<"Equivalent % for Individual Reports: "<<percentage_indv<<"%"<<endl;
+
+        cout<<"Enter (10) Group Report grades (100 points each): "<<endl;
+        for (int i = 0; i<10; i++){
+        cin>>group[i];
+        sum2 += group[i];
+        }
+        average2 = sum2/10;
+        percentage_grp = ((average2/100)*0.25)*100; //formula for grp percentage
+        cout<<"Equivalent % for Group Reports: "<<percentage_grp<<"%"<<endl;
+
+        cout<<"Enter (2) grades for quizzes (100 points each): "<<endl;
+        for (int i = 0; i<2; i++){
+        cin>>quizzes[i];
+        sum3 += quizzes[i];
+        }
+        average3 = sum3/2;
+        percentage_quiz = ((average3/100)*0.20)*100; //formula for quizzes percentage
+        cout<<"Equivalent % for quizzes: "<<percentage_quiz<<"%"<<endl;
+
+        cout<<"Enter Preliminary Examination Grade: "<<endl;
+        cout<<"Written (70 points): " << endl;
+        cin>>prelims_written;
+        cout<<"Practicals (30 points): " << endl;
+        cin>>prelims_pract;
+        average4 = (prelims_written + prelims_pract);
+        percentage_p = ((average4/100)*0.20)*100; //formula for prelims precentage
+        cout<<"Preliminary Examination %: "<<percentage_p<<"%"<<endl;
+
+        cout<<"Enter Final Examination Grade: "<<endl;
+        cout<<"Written (70 points): ";
+        cin>>finals_written;
+        cout<<"Practicals (30 points): ";
+        cin>>finals_pract;
+        average5 = (finals_written + finals_pract);
+        percentage_f = ((average5/100)*0.20)*100;
+        cout<<"Finals Examination %: "<<percentage_f<<"%"<<endl;
+
+        final_grade = percentage_p + percentage_f;                          //final grade for major exams formula
+        cout<<"Final % for Major Examinations: "<<final_grade<<"%\n"<<endl; //final grade for major exams output
+
+        final_grade_sem[i] = percentage_indv + percentage_grp + percentage_quiz + final_grade; //final grade for the sem formula
+    }
+
+    cout << "__________________________________________________________________________________" << endl;
+
+    for (int i=0; i<50; i++){
+
+            cout << "Student Name: " << ArrayFirst[i] << endl;
+            cout << "Final Raw Grade: " << final_grade_sem[i] << endl;
+
+            if(final_grade_sem[i] >=95 && final_grade_sem[i] <=100)       //GPA conversions
+        {
+            cout<<"The corresponding GPA for is 1.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=91.12 && final_grade_sem[i] <=95.56)
+        {
+            cout<<"The corresponding GPA is 1.25.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=86.68 && final_grade_sem[i] <=91.11)
+        {
+            cout<<"The corresponding GPA is 1.50.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=82.23 && final_grade_sem[i] <=86.67)
+        {
+            cout<<"The corresponding GPA is 1.75.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=77.79 && final_grade_sem[i] <=82.20)
+        {
+            cout<<"The corresponding GPA is 2.00.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=73.34 && final_grade_sem[i] <=77.78)
+        {
+            cout<<"The corresponding GPA is 2.25.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=68.90 && final_grade_sem[i] <=73.33)
+        {
+            cout<<"The corresponding GPA is 2.50.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=64.45 && final_grade_sem[i] <=68.89)
+        {
+            cout<<"The corresponding GPA is 2.75.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] >=60.00 && final_grade_sem[i] <=64.44)
+        {
+            cout<<"The corresponding GPA is 3.00.\nPassed!\n"<<endl;
+        }
+            if (final_grade_sem[i] <60)
+        {
+            cout<<"The corresponding GPA is 5.00. \nFailed.\n"<< endl;
+        }
+    }
+
+    for (int i = 0; i<50; i++)
+    {
+        for (int j = i+1; j<50; j++)
+        {if (final_grade_sem[i]<final_grade_sem[j])
+            {
+                temp = final_grade_sem[i];
+                final_grade_sem[i] = final_grade_sem[j];
+                final_grade_sem[j] = temp;
+
+                temp1 = ArrayFirst[i];
+                ArrayFirst[i] = ArrayFirst[j];
+                ArrayFirst[j] = temp1;
+            }
+        }
+    }
+
+    cout << "____________________________________________________________________________________\n" << endl;
+    cout << "\t\tTop 10 Students: " << endl;
+    for (int i=0; i<10; i++){
+    cout << "\t\t" << i+1 << ". " << ArrayFirst[i] << " ,Total Grade: " << final_grade_sem[i] <<endl;
+    }
+
+    _getch();
+    return 0;
+}
+
