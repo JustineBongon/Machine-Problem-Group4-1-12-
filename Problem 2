@@ -1,0 +1,83 @@
+#include<iostream>
+#include<cmath>
+#include<math.h>
+#include<conio.h>
+
+using namespace std;
+
+int main()
+
+{
+    
+    double side1, side2, side3;
+    double angle1, angle2, angle3, firstDegreeConvert, secondDegreeConvert, thirdDegreeConvert, acos(double x);
+    double semiperimeter;
+    double hypotenuse;
+    double apothem;
+    
+    cout << "Enter the measurement of the first side of the triangle: "; cin >> side1;
+    cout<<"Enter the measurement of the second side of the triangle: "; cin >> side2;
+    cout<<"Enter the measurement of the third side of the triangle: "; cin >> side3;
+    
+    // Compute for all interior angles.
+    angle1 = acos((pow(side3,2) - pow(side1,2) - pow(side2,2))/-(2 * side1 * side2));
+    angle2 = acos((pow(side1,2) - pow(side2,2) - pow(side3,2))/-(2 * side2 * side3));
+    angle3 = acos((pow(side2,2) - pow(side1,2) - pow(side3,2))/-(2 * side1 * side3));
+    
+    firstDegreeConvert = angle1*180/M_PI;
+    secondDegreeConvert = angle2*180/M_PI;
+    thirdDegreeConvert = angle3*180/M_PI;
+    
+    cout << "\nThe first interior angle is " << firstDegreeConvert << " degrees." << endl;
+    cout << "The second interior angle is " << secondDegreeConvert << " degrees." << endl;
+    cout << "The third interior angle is " << thirdDegreeConvert << " degrees." << endl;
+    
+    // Classify whether scalene, isosceles, or equilateral.
+    if (side1 == side2 && side1 == side3 && side2 == side3)
+    cout << "\nType of Triangle (By Side): Equilateral Triangle" << endl;
+    else if (side1 != side2 && side1 != side3 && side2 != side3)
+    cout << "\nType of Triangle (By Side): Scalene Triangle" << endl;
+    else
+    cout << "\nType of Triangle (By Side): Isosceles Triangle" << endl;
+    
+    // Determine the area and the perimeter.
+    semiperimeter = (side1 + side2 + side3) / 2;
+    cout << "\nArea = " << sqrt(semiperimeter * (semiperimeter - side1) * (semiperimeter - side2) * (semiperimeter - side3)) << endl;
+    cout << "Perimeter = " << side1 + side2 + side3 << endl;
+    
+    // Classify whether acute triangle, right triangle, or obtuse triangle.
+    hypotenuse = side3;
+    if (hypotenuse < side1)
+    {
+        side3 = hypotenuse;
+        hypotenuse = side1;
+        side1 = side3;
+    }
+    if (hypotenuse < side2)
+    {
+        side3 = hypotenuse;
+        hypotenuse = side2;
+        side2 = side3;
+    }
+    
+    if (side1*side1 + side2*side2 > hypotenuse*hypotenuse)
+    cout << "\nType of Triangle (By Angle): Acute Triangle" << endl;
+    else if ((side1*side1) + (side2*side2) == (hypotenuse*hypotenuse))
+    cout << "\nType of Triangle (By Angle): Right Triangle" << endl;
+    else
+    cout << "\nType of Triangle (By Angle): Obtuse Triangle" << endl;
+    
+    
+    // Compute for legth of apothem and circumcenter.
+    apothem = side1/(2 * tan(180/3));
+    if(side1 == side2 && side1 == side3 && side2 == side3)
+    cout<<"\nLength of Apothem = " << apothem << endl;
+    else cout<< "The triangle MUST be an equilateral triangle to find the length of the apothem." << endl;
+    
+    cout << "Circumcenter = "<< (side1 * side2 * side3) / sqrt((side1 + side2 + side3) * (-side1 + side2 + side3) * (side1 - side2 + side3) * (side1 + side2 - side3)) << endl;
+    
+    _getch();
+    return 0;
+
+}
+
